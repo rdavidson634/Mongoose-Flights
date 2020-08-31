@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <title>Document</title>
+</head>
+<body>
+    <div><a href="/flights">All Flights</a></div>
+    <br>
+    <table style="width: 100%;">
+        <thead>
+            <tr>
+                <th><div>Airline</div></th>
+                <th><div>Flight Number</div></th>
+                <th><div>Departure Date</div></th>
+                <th><div>Departure Airport</div></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><div><%=flight.airline%></div></td>
+                <td><div><%=flight.flightNo%></div></td>
+                <td><div><%=flight.departs%></div></td>
+                <td><div><%=flight.airport%></div></td>
+            </tr>
+        </tbody>
+    </table>
+    <br>
+    <br>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Destinations</th>
+                <th>Arrival Time</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% flight.destinations.forEach((dest) => { %>
+            <tr>
+                <td><%=dest.airport%></td>
+                <td><%=dest.arrival%></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+    <br>
+    <h2>Add Destinations</h2>
+    <form method="POST" action="/flights/<%= flight._id %>/destinations">
+        <label for="destination">Destination
+            <select name="airport">
+                <option value="AUS">AUS</option>
+                <option value="DFW">DFW</option>
+                <option value="DEN">DEN</option>
+                <option value="LAX">LAX</option>
+                <option value="SAN">SAN</option>
+            </select>
+        </label>
+        <label for="date">Date:
+            <input type="datetime-local" name="arrival" value="<%= destDate %>">
+        </label>
+        <button class="submit-button"  type="submit">Submit</button>    
+    </form>
+    <br>
+    <h2>Tickets</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Seat</th>
+                <th>Price</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% tickets.forEach((ticket) => { %>
+            <tr>
+                <td><%=ticket.seat%></td>
+                <td>$<%=ticket.price%></td>
+            </tr>
+            <% }) %>
+        </tbody>
+    </table>
+
+    <a href="/flights/<%=flight._id%>/tickets/new">New Ticket</a>
+</body>
+</html>
